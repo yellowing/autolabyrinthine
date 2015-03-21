@@ -139,7 +139,7 @@ World.prototype.run = function() {
     });
     world.time += wait;
 
-    if (world.time - world.lastSave > 2000) {
+    if (world.time - world.lastSave > 2000) { // todo: make this configurable?
         this.save();
         world.lastSave = world.time;
     }
@@ -153,10 +153,10 @@ World.prototype.run = function() {
     }
 
     var mover = movers.pop();
-    mover.timer = Math.max(20 - bonus(mover.dexterity), 1);
+    mover.timer = Math.max(20 - bonus(mover.dexterity), 1); // todo: make this configurable?
     mover.thrown = false;
     try {
-        mover.act(this.run.bind(this));
+        mover.act(this.run.bind(this)); // note: the player ignores this callback, which ends the recursion (seems kinda weird to me, though it shortens the code)
     } catch (e) {
         console.log(e);
         debug(0, 'Error in monster.act(): %s', e);

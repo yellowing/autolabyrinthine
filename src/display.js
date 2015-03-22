@@ -78,7 +78,7 @@ display.init = function(width, height, tileWidth, tileHeight) {
                 'top': (y * display.tileHeight) + 'px',
                 'width' : display.tileWidth + 'px',
                 'height' : display.tileHeight + 'px'
-            });
+            }).data('display-x', x).data('display-y', y);
             row.push(new Tile($tile));
             $map.append($tile);
         }

@@ -23,7 +23,7 @@
 	/*background-color: rgba(255,60,0,1);*/
 	border: solid 2px rgba(0,90,255,1.0);
 }
-.minimap {
+#minimap {
 	display: none; /*temp*/
 }
 

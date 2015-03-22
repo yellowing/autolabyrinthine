@@ -17,21 +17,17 @@ var sandbox = {
 	init : function() {
 		var width = this.gridWidth;
 		var height = this.gridHeight;
-		world = new World(width, height);
-		world.look(Math.floor(width/2), Math.floor(height/2));
 
 		this.network = new Cellular.Network(width, height, Math.random);
 
 		this.rules = new Cellular.Rules();
-
-		display.init(width, height, this.tileWidth, this.tileHeight);
 
 		// re-arranging maze
 		this.rules.setSurvival([1,2,3,4]);
 		this.rules.setBirth([3]);
 		this.rules.maxTimeAlive = 50;
 		// this.rules.maxTimeDead = 5;
-		this.rules.malleabilityLostPerChange = 1;
+		this.rules.malleabilityLostPerChange = 0;
 		this.rules.malleabilityRecoveredPerTurn = 0.25;
 
 
@@ -82,6 +78,7 @@ var sandboxControls = {
 		$("#play-pause-button").on('click', this.onClickPlayPause);
 		$("#step-button").on('click', this.onClickStep);
 		$("#regen-button").on('click', this.onClickRegen);
+		$('.tile').on('click', this.onClickTile);
 	},
 	onClickPlayPause : function() {
 		if (sandbox.timeout) {
@@ -89,9 +86,9 @@ var sandboxControls = {
 			$("#play-pause-button .playing").hide();
 			$("#play-pause-button .paused").show();
 		} else {
-			sandbox.play();;
+			sandbox.play();
 			$("#play-pause-button .paused").hide();
-			$("#play-pause-button .playing").show()
+			$("#play-pause-button .playing").show();
 		}
 	},
 	onClickStep : function() {
@@ -102,8 +99,37 @@ var sandboxControls = {
 		sandbox.network.probabilityFill(sandbox.initialFillPercent);
 		sandbox.network.all(function(cell){cell.reset()});
 		sandbox.display();
+	},
+	onClickTile : function(e) {
+		var tile = $(e.currentTarget);
+		var tx = parseInt(tile.data('display-x'));
+		var ty = parseInt(tile.data('display-y'));
+		var cell = sandbox.network.getCellAtPosition(tx, ty);
+		if (cell) {
+			if (cell.value > 0) {
+				cell.value = 0;
+			} else {
+				cell.value = 1;
+			}
+		}
+		sandbox.display();
 	}
 };
 
-sandboxControls.init();
-sandbox.init();
+var sandboxBootstrap = function() {
+	world = new World(sandbox.gridWidth, sandbox.gridHeight);
+	world.look(Math.floor(sandbox.gridWidth/2), Math.floor(sandbox.gridHeight/2));
+	display.init(sandbox.gridWidth, sandbox.gridHeight, sandbox.tileWidth, sandbox.tileHeight);
+	sandboxControls.init();
+	sandbox.init();
+
+	if (!sandbox.timeout) {
+		$("#play-pause-button .playing").hide();
+		$("#play-pause-button .paused").show();
+	} else {
+		$("#play-pause-button .paused").hide();
+		$("#play-pause-button .playing").show()
+	}
+}
+
+sandboxBootstrap();

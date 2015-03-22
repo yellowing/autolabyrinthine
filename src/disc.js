@@ -38,5 +38,6 @@ $(window).unload(function() {
 });
 
 /* Get things going. */
+display.init();
 world.display();
 world.run();

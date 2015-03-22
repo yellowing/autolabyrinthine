@@ -209,7 +209,7 @@ World.prototype.useStairs = function() {
     if (place instanceof Stair) {
         if (!place.map) {
             var map = Map.dungeon(DUNGEON_SIZE, DUNGEON_SIZE,
-                                  this.map.level / MAX_DEPTH);
+                                  this.map.level / MAX_DEPTH); // will probably want to make this more dynamic
             this.maps[map.id] = map;
             place.map = map.id;
             map.level = this.map.level + 1;

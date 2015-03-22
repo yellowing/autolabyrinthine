@@ -1,3 +1,12 @@
+## General
+- update rot.js
+- update jQuery (or replace?)
+
+
+
+
+## From original disc-rl repo:
+
 ## For the 7DRL
 
  * more monsters

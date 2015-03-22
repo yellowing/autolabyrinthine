@@ -53,31 +53,37 @@ var display = {};
 /** 2D array of all tiles. */
 display.grid = [];
 
-/** @const */
-display.SIZE = 15;
 
-/** @const */
-display.RADIUS = Math.floor(display.SIZE / 2);
-
-/** @const */
-display.PIXELS = 32;
+display.width = 15; // in tiles
+display.height = 15; // in tiles
+display.radius = Math.floor(Math.min(display.width, display.height) / 2); // in tiles
+display.tileWidth = 32; // (pixels per tile)
+display.tileHeight = 32;
 
 /* Initialize tiles. */
-(function() {
+display.init = function(width, height, tileWidth, tileHeight) {
+    display.width = width || display.width;
+    display.height = height || display.height;
+    display.radius = Math.floor(Math.min(display.width, display.height) / 2);
+    display.tileWidth = tileWidth || display.tileWidth;
+    display.tileHeight = tileHeight || display.tileHeight;
+
     var $map = $('#map');
-    for (var x = 0; x < display.SIZE; x++) {
+    for (var x = 0; x < display.width; x++) {
         var row = [];
         display.grid.push(row);
-        for (var y = 0; y < display.SIZE; y++) {
+        for (var y = 0; y < display.height; y++) {
             var $tile = $('<div/>').attr({'class': 'tile'}).css({
-                'left': (x * display.PIXELS) + 'px',
-                'top': (y * display.PIXELS) + 'px'
+                'left': (x * display.tileWidth) + 'px',
+                'top': (y * display.tileHeight) + 'px',
+                'width' : display.tileWidth + 'px',
+                'height' : display.tileHeight + 'px'
             });
             row.push(new Tile($tile));
             $map.append($tile);
         }
     }
-}());
+};
 
 /**
  * Visit each tile with a function.
@@ -86,9 +92,13 @@ display.PIXELS = 32;
 display.visit = function(f) {
     for (var y = 0; y < display.grid.length; y++) {
         for (var x = 0; x < this.grid[y].length; x++) {
+            // console.log(world);
+            // console.log(world.focus);
+            // console.log(world.focus.x, x, display.radius);
+            // console.log(world.focus.x + x - display.radius);
             f(this.grid[x][y],
-              world.focus.x + x - display.RADIUS,
-              world.focus.y + y - display.RADIUS);
+              world.focus.x + x - display.radius,
+              world.focus.y + y - display.radius);
         }
     }
 };
@@ -106,9 +116,9 @@ display.clear = function(type) {
 /* World coordinates. */
 
 display.get = function(x, y) {
-    if (this.grid[x + display.RADIUS - world.focus.x]) {
-        var wx = x + display.RADIUS - world.focus.x;
-        var wy = y + display.RADIUS - world.focus.y;
+    if (this.grid[x + display.radius - world.focus.x]) {
+        var wx = x + display.radius - world.focus.x;
+        var wy = y + display.radius - world.focus.y;
         return this.grid[wx][wy];
     } else {
         return undefined;

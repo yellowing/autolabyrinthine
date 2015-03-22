@@ -44,7 +44,7 @@ Map.prototype.computeVisible = function(player) {
     var fov = new ROT.FOV.PreciseShadowcasting(function(x, y) {
         return !that.isSolid(x, y);
     });
-    var r = display.RADIUS;
+    var r = display.radius;
     that.visible = {};
     fov.compute(player.x, player.y, r, function(x, y) {
         that.visible[[x, y]] = true;

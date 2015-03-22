@@ -91,6 +91,16 @@ world:
 map:
 	defines a single level/floor
 
+	properties
+	- spawnrate
+	- grid
+	- monsters
+	- level
+
+	methods
+	- random(predicate) (random position that predicate approves)
+
+
 place:
 	defines a space/cell within a map
 
@@ -123,6 +133,9 @@ display:
 	- the main view of the world (the "map") is DOM-based, using a Tile class
 	- the minimap uses canvas
 	- 
+
+	visit(function(tile, worldX, worldY))
+	- loops through each tile in the main display, hitting the function
 
 weapon:
 	base weapon class & definition

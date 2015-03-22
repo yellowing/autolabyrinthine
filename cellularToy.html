@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Disc RL</title>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="css/disc.css"/>
+    <link rel="stylesheet" href="css/tiles.css"/>
+    <link rel="stylesheet" href="css/place.css"/>
+    <link rel="stylesheet" href="css/monster.css"/>
+    <link rel="stylesheet" href="css/cellularToy.css"/>
+
+    <script src="lib/jquery-1.9.1.min.js"></script>
+    <script src="lib/sprintf-0.7-beta1.js"></script>
+    <script src="lib/rot.min.js"></script>
+    <script src="lib/rng.js"></script>
+    <script src="lib/namegen.js"></script>
+    <script src="src/util.js"></script>
+
+    <script src="src/dice.js" defer></script>
+    <script src="src/save.js" defer></script>
+    <script src="src/log.js" defer></script>
+    <script src="src/display.js" defer></script>
+    <script src="src/world.js" defer></script>
+    <script src="src/place.js" defer></script>
+    <script src="src/map.js" defer></script>
+    <script src="src/weapon.js" defer></script>
+    <script src="src/monster.js" defer></script>
+    <script src="src/ai.js" defer></script>
+    <script src="src/monsters.js" defer></script>
+    <script src="src/player.js" defer></script>
+    <script src="src/controls.js" defer></script>
+    <script src="src/cellular.js" defer></script>
+    <script src="src/cellularToy.js" defer></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="overlay"></div>
+
+      <div id="map">
+        <div id="disc"></div>
+      </div>
+
+      <canvas id="minimap" width="320" height="320"></canvas>
+
+      <div id="ca-options">
+
+      </div>
+
+      <div id="ca-controls">
+        <button id="play-pause-button">
+          <span class="paused">Play</span>
+          <span class="playing">Pause</span>
+        </button>
+        <button id="step-button">Step</button>
+        <button id="regen-button">Regenerate</button>
+      </div>
+
+      <div id="log"></div>
+    </div>
+  </body>
+</html>

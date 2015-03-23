@@ -121,23 +121,21 @@ World.prototype.remove = function(monster) {
  */
 World.prototype.run = function() {
     if (!this.active) return;
-    if (world.map.get(this.player.x, this.player.y) instanceof Tower) {
-        overlay('win');
-        important('Your User transfers you back home to safety.');
-        this.display();
-        this.gameOver();
+
+    if (this.shouldWin()) {
+        this.win();
         return;
     }
-
-    var all = [this.player].concat(this.map.monsters);
-    var wait = Math.max(0, all.reduce(function(max, m) {
-        return Math.min(max, m.timer);
+    
+    var allCreatures = [this.player].concat(this.map.monsters);
+    var timeUntilAction = Math.max(0, allCreatures.reduce(function(shortestWait, m) {
+        return Math.min(shortestWait, m.timer);
     }, Infinity));
-    var movers = all.filter(function(m) {
-        m.timer -= wait;
+    var movers = allCreatures.filter(function(m) {
+        m.timer -= timeUntilAction;
         return m.timer <= 0;
     });
-    world.time += wait;
+    world.time += timeUntilAction;
 
     if (world.time - world.lastSave > 2000) { // todo: make this configurable?
         this.save();
@@ -176,6 +174,19 @@ World.prototype.save = function() {
         var start = Date.now();
         Save.save('world');
     }
+};
+
+// evaluate win conditions
+World.prototype.shouldWin = function() {
+    return this.map.get(this.player.x, this.player.y) instanceof Tower;
+};
+
+// win the game
+World.prototype.win = function() {
+    presentation.overlay('win');
+    important('Your User transfers you back home to safety.');
+    this.display();
+    this.gameOver();
 };
 
 /**

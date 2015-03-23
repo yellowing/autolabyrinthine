@@ -114,9 +114,9 @@ place:
 	- corrupted (corruption has additional effects)
 	- special (?)
 
-	to add:
+	to add(?):
 	- dryness (nice-to-add: fire won't always immediately start -- the place can't burn until it's dry enough)
-	- flammability (if > 0, can burn. burning subtracts from flammability, so fire will eventually go out)
+	- burnableFuel (if > 0, can burn. burning subtracts from flammability, so fire will eventually go out)
 	- burning (bool -- is on fire)
 	- neighborSum? (caIdentifier:int dict for cellular automata--might be part of map, or its own thing instead)
 	- onAge? (each turn, the place can do something on its own? )
@@ -125,7 +125,7 @@ place:
 
 	all "places" (wall, floor, stairs) are defined here, too
 	some places have special attributes (e.g. stairs have a map)
-	note: because the display is DOM-based, the actual appearance of things is defined in CSS
+	note: because the display is DOM-based, the actual appearance of things is defined in CSS. this is kinda handy for prototyping, if you don't mind CSS.
 	
 
 display:

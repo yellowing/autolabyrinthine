@@ -1,3 +1,5 @@
+// Cellular Automata bits -- based on Conway's "Life" http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+
 var Cellular = {};
 Cellular.Cell = function () {
 	this.val = 0; // of course, in future, value needn't be binary

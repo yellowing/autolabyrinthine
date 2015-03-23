@@ -18,7 +18,7 @@ var sandbox = {
 		var width = this.gridWidth;
 		var height = this.gridHeight;
 
-		this.network = new Cellular.Network(width, height, Math.random);
+		this.network = new Cellular.Network(width, height, ROT.RNG.getUniform.bind(ROT.RNG));
 
 		this.rules = new Cellular.Rules();
 
@@ -30,7 +30,7 @@ var sandbox = {
 		this.rules.malleabilityLostPerChange = 0;
 		this.rules.malleabilityRecoveredPerTurn = 0.25;
 
-
+		ROT.RNG.setSeed(1234);
 		this.network.probabilityFill(this.initialFillPercent);
 		this.display();
 	},

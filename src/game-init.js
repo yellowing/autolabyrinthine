@@ -3,7 +3,7 @@
     presentation.printHelp();
     if (allowSaving) {
         if (World.load()) {
-            log('Game restored. Welcome back, %s.', world.player);
+            log('Nothing has changed.');
         } else {
             if (!Save.exists('playedBefore')) {
                 presentation.overlay('intro');

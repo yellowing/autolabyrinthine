@@ -13,6 +13,7 @@ function Map(level) {
     this.level = level || 1;
     this.visible = {};
     this.nextspawn = 0;
+    this.canSpawn = true;
     this.id = makeId();
 }
 
@@ -233,6 +234,8 @@ Map.uneasyMaze = function(seed, w, h) {
 
     // update ca rules to be restless
     // store ref to ca bits
+    
+    map.canSpawn = false;
 
     return map;
 }

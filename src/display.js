@@ -54,11 +54,11 @@ var display = {};
 display.grid = [];
 
 
-display.width = 15; // in tiles
-display.height = 15; // in tiles
+display.width = 20; // in tiles
+display.height = 20; // in tiles
 display.radius = Math.floor(Math.min(display.width, display.height) / 2); // in tiles
-display.tileWidth = 32; // (pixels per tile)
-display.tileHeight = 32;
+display.tileWidth = 24; // (pixels per tile)
+display.tileHeight = 24;
 
 /* Initialize tiles. */
 display.init = function(width, height, tileWidth, tileHeight) {

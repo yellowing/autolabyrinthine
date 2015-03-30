@@ -3,7 +3,7 @@
  */
 
 var WORLD_VERSION = 3;
-var DUNGEON_SIZE = 100;
+var DUNGEON_SIZE = 120;
 var MAX_DEPTH = 6;
 
 var world = null;
@@ -142,12 +142,14 @@ World.prototype.run = function() {
         world.lastSave = world.time;
     }
 
-    while (world.time > this.map.nextspawn) {
-        this.map.nextspawn += R.exponential() * this.map.spawnrate *
-            Math.max(1, Math.log(this.map.monsters.length));
-        // Occasionally spawn higher level monsters
-        var mod = Math.floor(R.exponential() * 0.5);
-        this.spawn(Mindex.random(this.map.level + mod));
+    if (map.canSpawn) {
+        while (world.time > this.map.nextspawn) {
+            this.map.nextspawn += R.exponential() * this.map.spawnrate *
+                Math.max(1, Math.log(this.map.monsters.length));
+            // Occasionally spawn higher level monsters
+            var mod = Math.floor(R.exponential() * 0.5);
+            this.spawn(Mindex.random(this.map.level + mod));
+        }
     }
 
     var mover = movers.pop();

@@ -192,48 +192,15 @@ Map.prototype.addTower = function() {
 
 /* Generators */
 
-Map.uneasyMaze = function(seed, w, h) {
+Map.uneasyMaze = function(livingMap) {
     var map = new Map();
-    var rng = ROT.RNG;
-    var caNetwork = new Cellular.Network(w,h, rng.getUniform.bind(rng));
-    var caRules = new Cellular.Rules();
 
-    // set up initial rules
-    caRules.setSurvival([1,2,3,4]);
-    caRules.setBirth([3]);
-    caRules.maxTimeAlive = Infinity;
-    caRules.maxTimeDead = Infinity;
-    caRules.malleabilityLostPerChange = 0;
-    caRules.malleabilityRecoveredPerTurn = 1.0;
-
-    rng.setSeed(seed);
-    caNetwork.probabilityFill(0.16);
-
-    // form initial maze-like structure
-    var maxPasses = 100;
-    var numChangesMade = 0;
-    var passes = 0;
-    caNetwork.updateNeighborCount();
-    numChangesMade = caRules.resolveCells(caNetwork.cells)
-    while (numChangesMade > 0 && passes < maxPasses) {
-        caNetwork.updateNeighborCount();
-        numChangesMade = caRules.resolveCells(caNetwork.cells)
-        passes++;
-    }
-
-    caNetwork.allXY(function(x, y, val, cell) {
+    livingMap.caNetwork.allXY(function(x, y, val, cell) {
         var place;
         place = new MorphicTile(val);
         place.seen = true;
         map.grid[[x, y]] = place;
      });
-    // todo:
-
-    // place endzone & start zone as static places
-    // indicate player start
-
-    // update ca rules to be restless
-    // store ref to ca bits
     
     map.canSpawn = false;
 

@@ -104,10 +104,10 @@ World.prototype.spawn = function(type) {
  */
 World.prototype.remove = function(monster) {
     if (monster === this.player) {
-        log('You were derezzed.');
+        log('You have been erased.');
         world.gameOver();
     } else {
-        log('%s was derezzed.', monster);
+        log('%s has vanished.', monster);
         this.map.monsters = this.map.monsters.filter(function(m) {
             return m !== monster;
         });
@@ -184,7 +184,7 @@ World.prototype.shouldWin = function() {
 // win the game
 World.prototype.win = function() {
     presentation.overlay('win');
-    important('Your User transfers you back home to safety.');
+    important('The universe dissolves.');
     this.display();
     this.gameOver();
 };
@@ -261,8 +261,9 @@ World.prototype.visibleMonsters = function() {
 };
 
 World.reset = function() {
-    log('Greetings, program.');
-    world = new World(Map.dungeon(DUNGEON_SIZE / 2, DUNGEON_SIZE / 2));
+    log('The corridors are unsettled.');
+    // world = new World(Map.dungeon(DUNGEON_SIZE / 2, DUNGEON_SIZE / 2));
+    world = new World(Map.uneasyMaze(Math.random(), DUNGEON_SIZE / 2, DUNGEON_SIZE / 2));
     world.map.spawnrate *= 0.7;
     var start = world.map.random(function(place) { return !place.solid; });
     world.player.move(start.x, start.y);

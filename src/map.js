@@ -94,7 +94,14 @@ Map.prototype.display = function() {
     var that = this;
     display.visit(function(tile, x, y) {
         var place = that.get(x, y);
-        var type = place ? place.constructor.name : null;
+        var type = null;
+        if (place) {
+            if (place.getAppearance) {
+                type = place.getAppearance();
+            } else {
+                type = place.place.constructor.name;
+            }
+        }
         if (that.visible[[x, y]]) {
             tile.set(type);
         } else if (place && place.seen) {
@@ -127,13 +134,13 @@ Map.prototype.display = function() {
                 if (place.special) {
                     ctx.fillStyle = '#f0f';
                 } else if (place.solid) {
-                    ctx.fillStyle = place.corrupted ? 'green' : 'blue';
+                    ctx.fillStyle = place.corrupted ? 'green' : '#898b7f';
                 } else if (place instanceof Stair) {
                     ctx.fillStyle = 'yellow';
                     ctx.globalAlpha = 1;
                 } else {
                     ctx.fillStyle =
-                        place.corrupted ? 'lightgreen' : 'lightgray';
+                        place.corrupted ? 'lightgreen' : '#333';
                 }
                 ctx.fillRect((x - cx) * s + MINIMAP_RADIUS * s,
                              (y - cy) * s + MINIMAP_RADIUS * s,
@@ -141,7 +148,7 @@ Map.prototype.display = function() {
             }
         }
     });
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = 'orange';
     ctx.globalAlpha = 1;
     ctx.fillRect(MINIMAP_RADIUS * s, MINIMAP_RADIUS * s, s, s);
 };
@@ -203,23 +210,31 @@ Map.uneasyMaze = function(seed, w, h) {
 
     // form initial maze-like structure
     var maxPasses = 100;
-    var numChangesMade;
-    network.updateNeighborCount();
+    var numChangesMade = 0;
+    var passes = 0;
+    caNetwork.updateNeighborCount();
     numChangesMade = caRules.resolveCells(caNetwork.cells)
     while (numChangesMade > 0 && passes < maxPasses) {
-        network.updateNeighborCount();
+        caNetwork.updateNeighborCount();
         numChangesMade = caRules.resolveCells(caNetwork.cells)
         passes++;
     }
 
+    caNetwork.allXY(function(x, y, val, cell) {
+        var place;
+        place = new MorphicTile(val);
+        place.seen = true;
+        map.grid[[x, y]] = place;
+     });
     // todo:
 
-    // fill map with morphic places
     // place endzone & start zone as static places
     // indicate player start
 
     // update ca rules to be restless
     // store ref to ca bits
+
+    return map;
 }
 
 Map.random = function(seed, w, h) { // not sure this is used anywhere...

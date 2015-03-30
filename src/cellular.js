@@ -138,6 +138,23 @@ Cellular.Network.prototype.all = function(callback) {
 	}
 };
 
+Cellular.Network.prototype.allXY = function(callback) {
+	// to more accurately match rotJS's format
+	var maxIndex = this.width * this.height;
+	var cells = this.cells;
+	var xPos = 0;
+	var xMax = this.height;
+	var yPos = 0;
+	var yMax = this.width;
+	var cellIndex = 0
+	for (yPos = 0; yPos < yMax; yPos++) {
+		for (xPos = 0; xPos < xMax; xPos++) {
+			callback(xPos, yPos, cells[cellIndex].value, cells[cellIndex]);
+			cellIndex++;
+		}
+	}
+};
+
 Cellular.Network.prototype.probabilityFill = function(chanceOfLife, rng) {
 	// randomly set the value of each cell in the network
 	rng = rng || this.rng; // optional rng function to use, other than the network's

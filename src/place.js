@@ -22,6 +22,28 @@ Place.prototype.modify = function(name) {
 
 /* Types of places. */
 
+function MorphicTile(initialValue) { 
+    Place.call(this); 
+    this.solid = (initialValue > 0);
+}
+MorphicTile.extend(Place);
+MorphicTile.prototype.getAppearance = function() {
+    if (this.solid) {
+        return "Wall";
+    } else {
+        return "Floor";
+    }
+}
+MorphicTile.prototype.toString = function() {
+    if (this.solid) {
+        return "Wall";
+    } else {
+        return "Floor";
+    }
+}
+
+/* ORIGINAL */
+
 function Wall() { Place.call(this); }
 Wall.extend(Place);
 Wall.prototype.solid = true;

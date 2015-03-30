@@ -1,6 +1,6 @@
 body {
     font-family: sans-serif;
-    background: #222;
+    background: #000209;
 }
 
 #disc {
@@ -24,9 +24,6 @@ body {
     position: absolute;
     background: black;
     color: white;
-    text-shadow: 0px 4px  3px  rgba(0,0,0,0.4),
-                 0px 8px  13px rgba(0,0,0,0.1),
-                 0px 18px 23px rgba(0,0,0,0.1);
 }
 
 #container {
@@ -151,18 +148,21 @@ body {
 }
 
 #log {
+    position: absolute;
+    top: 320px;
+    left: 480px;
+    width: 300px;
+    height: 150px;
+    padding: 5px 10px;
+    opacity: 0.90;
     font-family: monospace;
-    font-size: 14px;
-    margin: 5px 0;
-    border: 1px solid gray;
-    width: 785px;
-    padding: 10px;
+    font-size: 12px;
     background: black;
     color: lightgray;
-    display: inline-block;
+    display: block;
     overflow-y: scroll;
-    height: 84px;
-    padding: 5px 10px;
+    letter-spacing: 1px;
+    line-height: 16px;
 }
 
 .message {
@@ -184,7 +184,7 @@ body {
 }
 
 .important {
-    color: yellow;
+    color: rgb(230, 255, 209);
 }
 
 span.corrupt {
@@ -194,13 +194,13 @@ span.corrupt {
 #minimap {
     width: 320px;
     height: 320px;
-    border: 1px solid gray;
     position: absolute;
     top: 0px;
-    left: 485px;
+    left: 480px;
 }
 
 #stats {
+    display: none;
     width: 280px;
     border: 1px solid gray;
     position: absolute;

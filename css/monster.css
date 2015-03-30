@@ -1,5 +1,6 @@
 .Player {
-    color: white;
+    color: rgb(96, 96, 96);
+    text-shadow: 0 0 12px rgba(200, 190, 176, 0.25);
 }
 .Player:after {
     content: '@'

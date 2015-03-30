@@ -1,5 +1,7 @@
-.unseen {
-    opacity: 0.35;
+.tile.unseen {
+	-webkit-animation-name: none;
+	opacity: 0.65;
+	box-shadow: inset 0 0 4px rgba(0,0,0,0.14)
 }
 
 .selected {
@@ -11,4 +13,18 @@
     z-index: 75;
     border-radius: 6px;
     box-shadow: 0 0px 30px red;
+}
+
+.tile {
+	-webkit-animation-name: visibleTiles;
+	-webkit-animation-duration: 6.0s;
+	-webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes visibleTiles {
+    0%   {opacity: 1.0;}
+    25%  {opacity: 0.95;}
+    50%  {opacity: 0.99;}
+    75%  {opacity: 0.90;}
+    100% {opacity: 1.0;}
 }

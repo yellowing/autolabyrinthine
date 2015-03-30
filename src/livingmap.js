@@ -1,4 +1,4 @@
-var LivingMap = function(seed) {
+var LivingMap = function(seed, w, h) {
 	// ideally this would be more considerate of future growth,
 	// but it seems more prudent to focus on actually developing a game.
 	
